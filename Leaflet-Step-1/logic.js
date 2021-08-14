@@ -12,17 +12,29 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 
 //https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week.geojson
 //https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson
-//https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson
+var qurl_all = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
-// read from json and manipulate.
-// var fire_data = "../Resources/fire_data.json"
-// var fire_csv = "../Resources/California_Fire_Incidents_v1.csv"
-// var fire_csv = "../Resources/fire_data.csv"
+// Perform a GET request to the query URL/
+d3.json(qurl_all).then(function (data) {
+  // Once we get a response, send the data.features object to the createFeatures function.
+  // createFeatures(data.features);
+  console.log(data.features);
+});
 
-// // d3.json(fire_data).then(function() {
-  
+// function createFeatures(earthquakeData) {
 
-// d3.csv(fire_csv).then(function(data) {
+//   // Define a function that we want to run once for each feature in the features array.
+//   // Give each feature a popup that describes the place and time of the earthquake.
+//   function onEachFeature(feature, layer) {
+//     layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Mag(feature.properties.mag)}</p>`);
+//   }
+
+//   // Create a GeoJSON layer that contains the features array on the earthquakeData object.
+//   // Run the onEachFeature function once for each piece of data in the array.
+//   var earthquakes = L.geoJSON(earthquakeData, {
+//     onEachFeature: onEachFeature
+//   });
+// }
 
 //   // for marker size use acresburned
 //   function markerSize(AcresBurned) {
@@ -92,43 +104,10 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 //       }).bindPopup(`<h4>Name: ${data[i].FireName}</h4><h5>Duration: ${data[i].Duration}</h5>`)
 //       // .addTo(myMap)
 //     );
-
-//     // make layer colored by year 
-//      if (data[i].ArchiveYear == "2013") {
-//          colory = "red"
-//      } else if (data[i].ArchiveYear == "2014"){
-//          colory = "yellow"
-//      } else if (data[i].ArchiveYear == "2015"){
-//       colory = "green"
-//      } else if (data[i].ArchiveYear == "2016"){
-//       colory = "lightblue"
-//      } else if (data[i].ArchiveYear == "2017"){
-//       colory = "violet"
-//      } else if (data[i].ArchiveYear == "2018"){
-//       colory = "purple"
-//      } else if (data[i].ArchiveYear == "2019"){
-//       colory = "orange"
-//      } else {
-//       colory = "white"
-//      };
-
-//     yearfires.push(L.circle([data[i].Latitude, data[i].Longitude], {
-//       fillOpacity: 0.5,
-//       color: colory ,
-//       fillColor: colory ,
-//      // Setting our circle's radius to equal the output of our markerSize() function:
-//       radius: 1000
-//      }).bindPopup(`<h4>Name: ${data[i].FireName}</h4> <h5>Year: ${data[i].ArchiveYear}<br>Acres Burnt: ${data[i].AcresBurned}</h5>`)
-//      // .addTo(myMap)
-//     );
 //   //end i loop
 //   };
   
-//   // marker near Fresno
-//   marker1.push(L.marker([36.7542022991528, -119.8095611131692]).bindPopup(`Near Fresno`));
-//   dixie.push(L.marker([40.07173560759751, -121.20983910716066]).bindPopup(`Dixie Fire`));
-
-
+//   
 //   // create overlays.
 //   var mark = L.layerGroup(marker1);
 //   var fires = L.layerGroup(AllFires);
