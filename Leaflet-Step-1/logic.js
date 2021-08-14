@@ -10,6 +10,10 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 
 });
 
+//https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week.geojson
+//https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson
+//https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson
+
 // read from json and manipulate.
 // var fire_data = "../Resources/fire_data.json"
 // var fire_csv = "../Resources/California_Fire_Incidents_v1.csv"
