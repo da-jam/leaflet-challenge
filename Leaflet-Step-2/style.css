@@ -1,12 +1,12 @@
 
 /* Remove the default margin and padding from the body. */
 
-h1 {
+/* h1 {
   text-align: center;
   text-decoration: underline;
   margin-top: 20%;
   margin-left: 60%;
-   }
+   } */
 
 body {
   padding: 0;
