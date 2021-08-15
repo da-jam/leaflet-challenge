@@ -28,6 +28,7 @@ d3.json(qurl_all).then(function (data) {
   // Give each feature a popup that describes the place and time of the earthquake.
   function onEachFeature(feature, layer) {
     var mage = feature.properties.mag;
+    // console.log(mage);
     layer.bindPopup(`<h3>${feature.properties.place}</h3><p>Magnitude: ${(feature.properties.mag)}</p>`);
   }
 
@@ -35,8 +36,13 @@ d3.json(qurl_all).then(function (data) {
   // Run the onEachFeature function once for each piece of data in the array.
   //  var mage = feature.properties.mag;
 
+    // for marker size use acresburned
+    function markerSize(magnitude) {
+      return magnitude*1.5 ;
+    }
+
    var geojsonMarkerOptions = {
-    radius: mage*10,
+    radius: markerSize(mage),
     fillColor: "green",
     color: "green",
     weight: 2,
@@ -46,17 +52,12 @@ d3.json(qurl_all).then(function (data) {
 
    var earthquakes = L.geoJSON(earthquakeData, {
      onEachFeature: onEachFeature,
+    //  var mage = feature.properties.mag,
      pointToLayer: function (feature, latlng) {
          return L.circleMarker(latlng, geojsonMarkerOptions);
      }
     });
  //
-    // for marker size use acresburned
-    function markerSize(magnitude) {
-      // return Math.sqrt(magnitude) * 10000 ;
-      return magnitude*10 ;
-    }
-
   var overlayMaps = {
   "Earthquakes last 30 days": earthquakes
   };
