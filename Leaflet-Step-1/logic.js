@@ -14,7 +14,16 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 //https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson
 var qurl_all = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
-let mage = [];
+
+//for depth colors
+function chooseColor(depth) {
+  if (depth <= 5) return "yellow";
+  else if (depth <= 15) return "red";
+  else if (depth <= 30) return "orange";
+  else if (depth <= 60) return "green";
+  else return "purple";
+}
+
 // Perform a GET request to the query URL/
 d3.json(qurl_all).then(function (data) {
   // Once we get a response, send the data.features object to the createFeatures function.
@@ -27,32 +36,26 @@ d3.json(qurl_all).then(function (data) {
   // Define a function that we want to run once for each feature in the features array.
   // Give each feature a popup that describes the place and time of the earthquake.
   function onEachFeature(feature, layer) {
-    var mage = feature.properties.mag;
-    // console.log(mage);
     layer.bindPopup(`<h3>${feature.properties.place}</h3><p>Magnitude: ${(feature.properties.mag)}</p>`);
   }
 
   // Create a GeoJSON layer that contains the features array on the earthquakeData object.
   // Run the onEachFeature function once for each piece of data in the array.
-  //  var mage = feature.properties.mag;
-
-    // for marker size use acresburned
-    function markerSize(magnitude) {
-      return magnitude*1.5 ;
-    }
 
    var geojsonMarkerOptions = {
-    radius: markerSize(mage),
-    fillColor: "green",
-    color: "green",
     weight: 2,
     opacity: 1,
     fillOpacity: 0.5
    };
 
    var earthquakes = L.geoJSON(earthquakeData, {
+     style: function(feature) {
+       return { 
+         radius: feature.properties.mag,
+         color: chooseColor(feature.geometry.coordinates[2]),
+       };
+     },
      onEachFeature: onEachFeature,
-    //  var mage = feature.properties.mag,
      pointToLayer: function (feature, latlng) {
          return L.circleMarker(latlng, geojsonMarkerOptions);
      }
